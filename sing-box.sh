@@ -62,11 +62,11 @@ install_singbox(){
     fi
 
     rm -f /etc/sing-box/config.json
-    wget --no-check-certificate -O /etc/sing-box/config.json https://raw.githubusercontent.com/taffychan/sing-box/main/configs/server.json
+    wget --no-check-certificate -O /etc/sing-box/config.json https://gitlab.com/misakablog/singbox-shadowtls/-/raw/main/configs/server.json
     
     mkdir /root/sing-box
-    wget --no-check-certificate -O /root/sing-box/client-sockshttp.json https://raw.githubusercontent.com/taffychan/sing-box/main/configs/client-sockshttp.json
-    wget --no-check-certificate -O /root/sing-box/client-tun.json https://raw.githubusercontent.com/taffychan/sing-box/main/configs/client-tun.json
+    wget --no-check-certificate -O /root/sing-box/client-sockshttp.json https://gitlab.com/misakablog/singbox-shadowtls/-/raw/main/configs/client-sockshttp.json
+    wget --no-check-certificate -O /root/sing-box/client-tun.json https://gitlab.com/misakablog/singbox-shadowtls/-/raw/main/configs/client-tun.json
     
     v6=$(curl -s6m8 api64.ipify.org -k)
     v4=$(curl -s4m8 api64.ipify.org -k)
