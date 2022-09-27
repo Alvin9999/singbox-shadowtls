@@ -68,8 +68,17 @@ install_singbox(){
     wget --no-check-certificate -O /root/sing-box/client-sockshttp.json https://gitlab.com/misakablog/singbox-shadowtls/-/raw/main/configs/client-sockshttp.json
     wget --no-check-certificate -O /root/sing-box/client-tun.json https://gitlab.com/misakablog/singbox-shadowtls/-/raw/main/configs/client-tun.json
     
-    v6=$(curl -s6m8 api64.ipify.org -k)
-    v4=$(curl -s4m8 api64.ipify.org -k)
+    wgcfv6status=$(curl -s6m8 https://www.cloudflare.com/cdn-cgi/trace -k | grep warp | cut -d= -f2) 
+    wgcfv4status=$(curl -s4m8 https://www.cloudflare.com/cdn-cgi/trace -k | grep warp | cut -d= -f2)
+    if [[ $wgcfv4status =~ "on"|"plus" ]] || [[ $wgcfv6status =~ "on"|"plus" ]]; then
+        wg-quick down wgcf >/dev/null 2>&1
+        v6=$(curl -s6m8 api64.ipify.org -k)
+        v4=$(curl -s4m8 api64.ipify.org -k)
+        wg-quick up wgcf >/dev/null 2>&1
+    else
+        v6=$(curl -s6m8 api64.ipify.org -k)
+        v4=$(curl -s4m8 api64.ipify.org -k)
+    fi
     
     if [[ -n $v4 ]]; then
         sed -i "s/填写服务器ip地址/${v4}/g" /root/sing-box/client-sockshttp.json
