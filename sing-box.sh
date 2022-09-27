@@ -62,7 +62,7 @@ install_singbox(){
     fi
 
     rm -f /etc/sing-box/config.json
-    wget --no-check-certificate -O /etc/sing-box/config.json https://gitlab.com/misakablog/singbox-shadowtls/-/raw/main/configs/server.json
+    wget --no-check-certificate -O /etc/sing-box/config.json https://gitlab.com/misakablog/singbox-shadowtls/-/raw/main/configs/server-config.json
     
     mkdir /root/sing-box
     wget --no-check-certificate -O /root/sing-box/client-sockshttp.json https://gitlab.com/misakablog/singbox-shadowtls/-/raw/main/configs/client-sockshttp.json
