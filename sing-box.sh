@@ -51,14 +51,22 @@ archAffix(){
 }
 
 install_singbox(){
+    version_tag=$(curl -Ls "https://api.github.com/repos/SagerNet/sing-box/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+    if [[ ! -n "$last_version" ]]; then
+        red "检测 Sing-box 版本失败，可能是超出 Github API 限制，请稍后再试"
+        exit 1
+    fi
+    download_tag=$(echo $version_tag | sed "s/v//g")
+
+
     if [[ $SYSTEM == "CentOS" ]]; then
-        wget -N --no-check-certificate https://cdn.jsdelivr.net/gh/taffychan/sing-box/files/sing-box-latest-$(archAffix).rpm
-        rpm -i sing-box-latest-$(archAffix).rpm
-        rm -f sing-box-latest-$(archAffix).rpm
+        wget -N --no-check-certificate https://github.com/SagerNet/sing-box/releases/download/$version_tag/sing-box_"$download_tag"_linux_$(archAffix).rpm
+        rpm -i sing-box_"$download_tag"_linux_$(archAffix).rpm
+        rm -f sing-box_"$download_tag"_linux_$(archAffix).rpm
     else
-        wget -N --no-check-certificate https://cdn.jsdelivr.net/gh/taffychan/sing-box/files/sing-box-latest-$(archAffix).deb
-        dpkg -i sing-box-latest-$(archAffix).deb
-        rm -f sing-box-latest-$(archAffix).deb
+        wget -N --no-check-certificate https://github.com/SagerNet/sing-box/releases/download/$version_tag/sing-box_"$download_tag"_linux_$(archAffix).deb
+        dpkg -i sing-box_"$download_tag"_linux_$(archAffix).deb
+        rm -f sing-box_"$download_tag"_linux_$(archAffix).deb
     fi
 
     rm -f /etc/sing-box/config.json
