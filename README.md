@@ -1,7 +1,7 @@
 # Sing-box + ShadowTLS 一键管理脚本
 
 ```shell
-wget -N --no-check-certificate https://gitlab.com/misakablog/singbox-shadowtls/-/raw/main//sing-box.sh && bash sing-box.sh
+wget -N --no-check-certificate https://raw.githubusercontent.com/blog-misaka/singbox-shadowtls/main/sing-box.sh && bash sing-box.sh
 ```
 
 ## 赞助我们
