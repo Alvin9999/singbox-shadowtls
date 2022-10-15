@@ -52,7 +52,7 @@ archAffix(){
 
 install_singbox(){
     version_tag=$(curl -Ls "https://api.github.com/repos/SagerNet/sing-box/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-    if [[ ! -n "$last_version" ]]; then
+    if [[ -z "$version_tag" ]]; then
         red "检测 Sing-box 版本失败，可能是超出 Github API 限制，请稍后再试"
         exit 1
     fi
