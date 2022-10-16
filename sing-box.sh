@@ -80,9 +80,11 @@ install_singbox(){
     wgcfv4status=$(curl -s4m8 https://www.cloudflare.com/cdn-cgi/trace -k | grep warp | cut -d= -f2)
     if [[ $wgcfv4status =~ "on"|"plus" ]] || [[ $wgcfv6status =~ "on"|"plus" ]]; then
         wg-quick down wgcf >/dev/null 2>&1
+        systemctl stop warp-go >/dev/null 2>&1
         v6=$(curl -s6m8 api64.ipify.org -k)
         v4=$(curl -s4m8 api64.ipify.org -k)
         wg-quick up wgcf >/dev/null 2>&1
+        systemctl start warp-go >/dev/null 2>&1
     else
         v6=$(curl -s6m8 api64.ipify.org -k)
         v4=$(curl -s4m8 api64.ipify.org -k)
